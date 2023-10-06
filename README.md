@@ -5,7 +5,7 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 # Project Overview
 
 This is a WhatsApp clone application where the data is just dummy. In the application, an api call has been implemented to the Bluprint Api created on apiary.io which you can see at https://whatsappclone.docs.apiary.io/. If you want to test your application and don't want to bother running it on your machine, you can download the apk file at this link to test it on your Android device.
-link download: https://raw.githubusercontent.com/tri-hariyadi/DummyWhatsappClone/master/Documentation/app-release.apk
+[`Download DummyWhatsappClone`](https://drive.google.com/file/d/1m1yEAtjDEzpfCTsHJ9eawRvDURSHY3UB/view?usp=sharing)
 
 ### List Of Chat
 Displays user chat with other users.
