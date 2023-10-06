@@ -4,9 +4,11 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 # Project Overview
 
-This is a WhatsApp clone application where the data is just dummy. In the application, an api call has been implemented to the Bluprint Api created on apiary.io which you can see at https://whatsappclone.docs.apiary.io/.
+This is a WhatsApp clone application where the data is just dummy. In the application, an api call has been implemented to the Bluprint Api created on apiary.io which you can see at https://whatsappclone.docs.apiary.io/. If you want to test your application and don't want to bother running it on your machine, you can download the apk file at this link to test it on your Android device.
+link download: https://raw.githubusercontent.com/tri-hariyadi/DummyWhatsappClone/master/Documentation/app-release.apk
 
 ### List Of Chat
+Displays user chat with other users.
 
 <img src="https://raw.githubusercontent.com/tri-hariyadi/DummyWhatsappClone/master/Documentation/home.png" width="250"> <br/>
 
@@ -38,7 +40,7 @@ In chat screeen you can see and send message immediately using input box.
 ### Able to click on the chat header to open user/group information.
 To see detail contact, you can click the header chat.
 
-<img src="https://raw.githubusercontent.com/tri-hariyadi/DummyWhatsappClone/master/Documentation/group_info.png" width="250"> <br/>
+<img src="https://raw.githubusercontent.com/tri-hariyadi/DummyWhatsappClone/master/Documentation/contact_info.png" width="250"> <br/>
 
 ### Ability to search messages content inside any chat screen.
 If you want to search any message content in the chat screen you must click the header chat first an you will navigating to the detail user and can click search button for search the message content.
