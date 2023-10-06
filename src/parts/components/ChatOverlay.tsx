@@ -9,7 +9,7 @@ import {
     ViewStyle,
 } from 'react-native';
 
-import {Button, Emoji, Gap, Row, Text} from 'components';
+import {Button, Emoji, Gap, ProgressiveImage, Row, Text} from 'components';
 import {colors, helpers} from 'utils';
 import {dimens, margin, padding, rounded} from 'utils/mixins';
 import {ChatType} from 'parts/ListChat';
@@ -23,7 +23,7 @@ import BottomSheet, {BottomSheetRefType} from 'components/BottomSheet';
 
 type IProps = {
     chat: {
-        current: ChatType | null;
+        current: (ChatType & {img_group?: string; member_name?: string}) | undefined;
     };
     bubbleStyle: (_id: string) => ViewStyle;
     isGroup?: boolean;
@@ -48,16 +48,16 @@ const ChatOverlay = React.forwardRef<ChatOverlayRefType, IProps>(({chat, bubbleS
             dispatch(
                 addReactionToChatGroup({
                     reaction: emoji,
-                    date: chat.current?.date,
-                    chatID: chat.current?.chatID,
+                    date: chat?.current?.date,
+                    chatID: chat?.current?.chatID,
                 }),
             );
         } else {
             dispatch(
                 addReactionToChat({
                     reaction: emoji,
-                    date: chat.current?.date,
-                    chatID: chat.current?.chatID,
+                    date: chat?.current?.date,
+                    chatID: chat?.current?.chatID,
                 }),
             );
         }
@@ -83,7 +83,7 @@ const ChatOverlay = React.forwardRef<ChatOverlayRefType, IProps>(({chat, bubbleS
                     <TouchableWithoutFeedback onPress={() => setVisible(false)}>
                         <View style={styles.container} />
                     </TouchableWithoutFeedback>
-                    <View style={{...bubbleStyle(chat.current?.sentBy as string), backgroundColor: 'transparent'}}>
+                    <View style={{...bubbleStyle(chat?.current?.sentBy as string), backgroundColor: 'transparent'}}>
                         <Row justifyCenter itemsCenter style={styles.emojiWrapper}>
                             {startingEmoji.map((emoji, idx) => (
                                 <TouchableOpacity
@@ -91,7 +91,7 @@ const ChatOverlay = React.forwardRef<ChatOverlayRefType, IProps>(({chat, bubbleS
                                     activeOpacity={0.7}
                                     style={[
                                         styles.overlayEmoji,
-                                        chat.current?.reaction === emoji ? {backgroundColor: colors.N40} : {},
+                                        chat?.current?.reaction === emoji ? {backgroundColor: colors.N40} : {},
                                     ]}
                                     onPress={() => handleReaction(emoji)}>
                                     <Text size={18}>{emoji}</Text>
@@ -109,13 +109,41 @@ const ChatOverlay = React.forwardRef<ChatOverlayRefType, IProps>(({chat, bubbleS
                             />
                         </Row>
                         <Gap height={10} />
-                        <View style={[styles.chatBubble, {...bubbleStyle(chat.current?.sentBy as string)}]}>
-                            <Text>{chat.current?.chatContent}</Text>
+                        {/* <View style={[styles.chatBubble, {...bubbleStyle(chat?.current?.sentBy as string)}]}>
+                            <Text>{chat?.current?.chatContent}</Text>
                             <Gap height={5} />
                             <Text size={11} color={colors.N40} style={styles.textTime}>
-                                {helpers.getTime(chat.current?.date as string)}
+                                {helpers.getTime(chat?.current?.date as string)}
                             </Text>
-                        </View>
+                        </View> */}
+                        <Row
+                            itemsEnd
+                            style={{
+                                ...bubbleStyle(chat.current?.sentBy || ''),
+                                backgroundColor: 'transparent',
+                            }}>
+                            {isGroup && chat?.current?.member_name && (
+                                <ProgressiveImage source={{uri: chat?.current?.img_group}} style={styles.avatar} />
+                            )}
+                            <View style={{flex: 1}}>
+                                <TouchableOpacity
+                                    activeOpacity={0.8}
+                                    style={[styles.chatBubble, {...bubbleStyle(chat?.current?.sentBy || '')}]}>
+                                    {chat?.current?.member_name && isGroup && (
+                                        <Text
+                                            font="medium"
+                                            size={12}
+                                            color={colors.primary}
+                                            style={{marginBottom: 2}}>{`~${chat?.current?.member_name}`}</Text>
+                                    )}
+                                    <Text>{chat?.current?.chatContent}</Text>
+                                    <Gap width={10} />
+                                    <Text size={11} color={colors.N40} style={{alignSelf: 'flex-end'}}>
+                                        {helpers.getTime(chat?.current?.date || '')}
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                        </Row>
                     </View>
                 </View>
             </Modal>
@@ -168,5 +196,10 @@ const styles = StyleSheet.create({
         ...rounded(36 / 2),
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    avatar: {
+        ...dimens(35),
+        ...rounded(35 / 2),
+        ...margin(2, 7, 0, 0),
     },
 });
