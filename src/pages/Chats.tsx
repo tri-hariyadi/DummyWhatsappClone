@@ -34,7 +34,7 @@ const Chats = () => {
     const messageList = useMemo(() => {
         if (messages.filterBy === '') return messages.data;
         return messages.data.filter(message => message.patnerName?.toLowerCase()?.includes(messages.filterBy));
-    }, [messages]);
+    }, [messages, messages.filterBy]);
 
     useUpdateEffect(() => {
         if (!search) {

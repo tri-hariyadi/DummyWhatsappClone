@@ -77,14 +77,20 @@ const ChatOverlay = React.forwardRef<ChatOverlayRefType, IProps>(({chat, bubbleS
                     resizeMode="cover"
                     style={{flex: 1}}
                     blurRadius={15}
-                    imageStyle={{opacity: 0.9}}
+                    imageStyle={{opacity: 0.6}}
                 />
                 <View style={styles.container}>
                     <TouchableWithoutFeedback onPress={() => setVisible(false)}>
                         <View style={styles.container} />
                     </TouchableWithoutFeedback>
                     <View style={{...bubbleStyle(chat?.current?.sentBy as string), backgroundColor: 'transparent'}}>
-                        <Row justifyCenter itemsCenter style={styles.emojiWrapper}>
+                        <Row
+                            justifyCenter
+                            itemsCenter
+                            style={[
+                                {alignSelf: StyleSheet.flatten(bubbleStyle(chat.current?.sentBy || '')).alignSelf},
+                                styles.emojiWrapper,
+                            ]}>
                             {startingEmoji.map((emoji, idx) => (
                                 <TouchableOpacity
                                     key={`starting-emoji-${idx}`}
@@ -174,6 +180,7 @@ const styles = StyleSheet.create({
         ...rounded(12, 12, 12, 0),
         ...margin(0, 0, 16),
         maxWidth: '80%',
+        minWidth: '22%',
     },
     textTime: {
         alignSelf: 'flex-end',

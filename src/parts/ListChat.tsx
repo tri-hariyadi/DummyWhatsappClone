@@ -50,7 +50,7 @@ const ListChat = React.forwardRef<IListChatRef, Props>(({data, isGroup}, ref) =>
     );
 
     useUpdateEffect(() => {
-        if ((data?.allChat.length as number) > dataUpdated.current) {
+        if ((data?.allChat.length as number) !== dataUpdated.current) {
             dataUpdated.current = data?.allChat.length as number;
             if (dataSource?.length) {
                 setDataSource(data?.allChat);

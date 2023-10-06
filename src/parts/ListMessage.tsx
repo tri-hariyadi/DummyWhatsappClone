@@ -40,7 +40,7 @@ const ListMessage = ({data, navigateToGroupRoom, onPressItem}: Props) => {
     const windowSize = React.useMemo(() => ((data?.length as number) > 50 ? (data?.length as number) / 4 : 21), [data]);
 
     useUpdateEffect(() => {
-        if ((data?.length as number) > dataUpdated.current) {
+        if ((data?.length as number) !== dataUpdated.current) {
             dataUpdated.current = data?.length as number;
             if (dataSource?.length) {
                 setDataSource(data);
@@ -159,15 +159,7 @@ const ListMessage = ({data, navigateToGroupRoom, onPressItem}: Props) => {
     );
 };
 
-export default React.memo(ListMessage, (prevProps, nextProps) => {
-    if (
-        JSON.stringify(prevProps.data) === JSON.stringify(nextProps.data) &&
-        Object.keys(prevProps) === Object.keys(nextProps)
-    ) {
-        return true;
-    }
-    return false;
-});
+export default React.memo(ListMessage);
 
 const styles = StyleSheet.create({
     separator: {

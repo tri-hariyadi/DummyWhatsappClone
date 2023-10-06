@@ -47,10 +47,13 @@ const ChatGroupRoom = () => {
     }, []);
 
     useEffect(() => {
+        if (chattingGroup?.allChat) {
+            setDataChatting(chattingGroup);
+        }
         if (params.search) {
             searchRef.current?.focus();
         }
-    }, [params.search]);
+    }, [params.search, chattingGroup]);
 
     const sendMessage = useCallback(() => {
         const today = new Date();
@@ -63,7 +66,7 @@ const ChatGroupRoom = () => {
             }),
         );
         inputRef.current?.clear();
-    }, []);
+    }, [chattingGroup]);
 
     const handleSearchChat = useCallback(() => {
         const key = searchRef.current?.target.value;

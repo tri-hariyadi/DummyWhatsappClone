@@ -57,7 +57,7 @@ const ChatRoom = () => {
         dispatch(
             addChat({
                 chatContent: inputRef.current?.target.value,
-                chatID: chatting?.chatID,
+                chatID: params.chatID,
                 date: today.toISOString(),
                 sentBy: user?.uid,
             }),
@@ -80,7 +80,7 @@ const ChatRoom = () => {
             });
             setDataChatting(dataFiltered);
         }
-    }, []);
+    }, [chatting]);
 
     const handleClearSearch = useCallback(() => {
         setDataChatting(chatting);
