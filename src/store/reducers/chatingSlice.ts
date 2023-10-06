@@ -51,7 +51,11 @@ export const chattingSlice = createSlice({
             if (data?.allChat) {
                 data.allChat.forEach((item, idx) => {
                     if (new Date(item.date).getMilliseconds() === new Date(action.payload.date).getMilliseconds()) {
-                        data.allChat[idx] = {...data.allChat[idx], reaction: action.payload.reaction};
+                        if (data.allChat[idx].reaction === action.payload.reaction) {
+                            data.allChat[idx] = {...data.allChat[idx], reaction: ''};
+                        } else {
+                            data.allChat[idx] = {...data.allChat[idx], reaction: action.payload.reaction};
+                        }
                     }
                 });
             }

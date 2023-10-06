@@ -35,7 +35,7 @@ type Props = {
 const ListChat = React.forwardRef<IListChatRef, Props>(({data, isGroup}, ref) => {
     const listChatRef = React.useRef<FlatList>(null);
     const overlayChatRef = useRef<ChatOverlayRefType>(null);
-    const dataChat = useRef<ChatType | null>(null);
+    const dataChat = useRef<ChatType | undefined>();
     const user = useSelector(selectContact);
 
     const [offset, setOffset] = useState(1);
@@ -162,8 +162,10 @@ const ListChat = React.forwardRef<IListChatRef, Props>(({data, isGroup}, ref) =>
                                 <TouchableOpacity
                                     activeOpacity={0.8}
                                     onLongPress={() => {
-                                        dataChat.current = {...item, chatID: data?.chatID};
-                                        overlayChatRef.current?.show();
+                                        if (data) {
+                                            dataChat.current = {...data?.allChat[index], chatID: data?.chatID};
+                                            overlayChatRef.current?.show();
+                                        }
                                     }}
                                     style={[styles.chatBubble, {...bubbleStyle(item.sentBy)}]}>
                                     {a?.name && isGroup && (

@@ -105,7 +105,7 @@ const ChatOverlay = React.forwardRef<ChatOverlayRefType, IProps>(({chat, bubbleS
                                 iconColor={colors.N100}
                                 background={colors.progressiveImageBg}
                                 containerStyle={styles.btnIcon}
-                                onPress={() => btSheet.current?.show()}
+                                // onPress={() => btSheet.current?.show()}
                             />
                         </Row>
                         <Gap height={10} />
